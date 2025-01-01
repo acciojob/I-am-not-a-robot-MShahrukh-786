@@ -1,18 +1,116 @@
+
+Here’s the JavaScript solution to meet the described requirements:
+
+html
+Copy code
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>I'm not a robot</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main>
-      <!-- solution start -->
-      
-      <!-- solution end -->
-    </main>
-    <script src="./script.js"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Verification</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h3 id="h">Please click on the identical tiles to verify that you are not a robot.</h3>
+    
+    <div id="image-container">
+        <img src="image1.jpg" class="img1" data-index="1">
+        <img src="image2.jpg" class="img2" data-index="2">
+        <img src="image3.jpg" class="img3" data-index="3">
+        <img src="image4.jpg" class="img4" data-index="4">
+        <img src="image5.jpg" class="img5" data-index="5">
+        <img src="image1.jpg" class="img1" data-index="1"> <!-- Repeated image -->
+    </div>
+    
+    <button id="reset" style="display:none;">Reset</button>
+    <button id="verify" style="display:none;">Verify</button>
+    
+    <p id="para"></p>
+
+    <script>
+        // Global variables to track the clicks and the initial state
+        let clickedImages = [];
+        let state = 1; // Initial state: no tiles clicked
+        let repeatedIndex;
+
+        // Function to randomize the images
+        function randomizeImages() {
+            const images = document.querySelectorAll('#image-container img');
+            const imageClasses = ['img1', 'img2', 'img3', 'img4', 'img5'];
+
+            // Select a random class to repeat
+            repeatedIndex = Math.floor(Math.random() * 5);
+
+            // Shuffle the image order and repeat one image
+            images.forEach((img, i) => {
+                img.className = imageClasses[i];
+            });
+
+            // Randomize the positions
+            const container = document.getElementById('image-container');
+            const shuffledImages = Array.from(container.children);
+            shuffledImages.sort(() => Math.random() - 0.5);
+            shuffledImages.forEach(img => container.appendChild(img));
+        }
+
+        // Reset the state and UI
+        function resetState() {
+            state = 1;
+            clickedImages = [];
+            document.getElementById('para').innerHTML = '';
+            document.getElementById('verify').style.display = 'none';
+            document.getElementById('reset').style.display = 'none';
+            document.getElementById('h').innerHTML = 'Please click on the identical tiles to verify that you are not a robot.';
+        }
+
+        // Handle image click event
+        function handleImageClick(event) {
+            if (clickedImages.length < 2) {
+                const img = event.target;
+
+                if (!clickedImages.includes(img)) {
+                    clickedImages.push(img);
+                }
+
+                // Show reset button once any image is clicked
+                document.getElementById('reset').style.display = 'inline';
+
+                // If two images have been clicked, show verify button
+                if (clickedImages.length === 2) {
+                    document.getElementById('verify').style.display = 'inline';
+                }
+            }
+        }
+
+        // Verify button action
+        function verifyClick() {
+            const [img1, img2] = clickedImages;
+            if (img1.className === img2.className) {
+                document.getElementById('para').innerHTML = 'You are a human. Congratulations!';
+            } else {
+                document.getElementById('para').innerHTML = 'We can\'t verify you as a human. You selected the non-identical tiles.';
+            }
+            // Hide the verify button after verification
+            document.getElementById('verify').style.display = 'none';
+        }
+
+        // Reset button action
+        function handleResetClick() {
+            resetState();
+            randomizeImages();
+        }
+
+        // Event listeners
+        document.querySelectorAll('#image-container img').forEach(img => {
+            img.addEventListener('click', handleImageClick);
+        });
+
+        document.getElementById('verify').addEventListener('click', verifyClick);
+        document.getElementById('reset').addEventListener('click', handleResetClick);
+
+        // Initial randomization and setup
+        randomizeImages();
+    </script>
+</body>
 </html>

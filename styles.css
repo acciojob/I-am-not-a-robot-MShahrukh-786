@@ -1,40 +1,114 @@
+/* Basic reset for body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    flex-direction: column;
+}
+
+/* Title */
+h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Image container styling */
+#image-container {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);  /* 3 columns of images */
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* General styling for images */
+#image-container img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect for images */
+#image-container img:hover {
+    transform: scale(1.1);
+}
+
+/* Button styling */
+button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+}
+
+/* Reset button specific styling */
+#reset {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+#reset:hover {
+    background-color: #d32f2f;
+}
+
+/* Verify button specific styling */
+#verify {
+    background-color: #4caf50; /* Green */
+    color: white;
+}
+
+#verify:hover {
+    background-color: #388e3c;
+}
+
+/* Initially hide the buttons */
+#reset, #verify {
+    display: none;
+}
+
+/* Paragraph for verification result */
+#para {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* For each image, you can assign your styles using img1, img2, etc. */
+.img1, .img2, .img3, .img4, .img5 {
+    border: 3px solid #e0e0e0; /* Light border */
+    padding: 5px;
+}
+
+/* Add specific styles if you want to differentiate the repeated image visually */
 .img1 {
-  content: url("https://picsum.photos/id/237/200/300");
+    border-color: #2196f3; /* Blue border for img1 */
 }
 
 .img2 {
-  content: url("https://picsum.photos/seed/picsum/200/300");
+    border-color: #ff9800; /* Orange border for img2 */
 }
 
 .img3 {
-  content: url("https://picsum.photos/200/300?grayscale");
+    border-color: #4caf50; /* Green border for img3 */
 }
+
 .img4 {
-  content: url("https://picsum.photos/200/300/");
+    border-color: #9c27b0; /* Purple border for img4 */
 }
+
 .img5 {
-  content: url("https://picsum.photos/200/300.jpg");
-}
-
-img {
-  margin: 10px;
-  border: 5px solid #555;
-  width: 10%;
-}
-
-.flex {
-  display: flex;
-  justify-content: center;
-}
-
-.selected {
-  border: 5px solid rgb(0, 195, 255);
-}
-
-p {
-  text-align: center;
-}
-
-button {
-  margin: 20px;
+    border-color: #f44336; /* Red border for img5 */
 }
